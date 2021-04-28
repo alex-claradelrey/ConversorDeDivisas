@@ -1,9 +1,10 @@
 
 #todas las monedas basadas en dollar
+# DOLAR es constante
 dolar = 1
-euro = 1.21
-libra = 1.39
-btc = 54379.40 
+euro = 1.21 #$
+libra = 1.39  #$
+btc = 54379.40 #$ 
 #las variables se actualizarán a tiempo real y se cambiarán
 
 conversiones = {"dolar":dolar,"euro":euro,"libra":libra,"btc":btc} #dolares
