@@ -7,6 +7,9 @@ from datosremotos.conversor import *
 from datosremotos.datosr import *
 from datosremotos.config import *
 from time import sleep
+from PIL import ImageTk, Image
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 root = Tk()
@@ -115,14 +118,63 @@ def datos():
     LabelEURO.configure(text=f"EURO:   {euro_dollar()} $")
     LabelLIBRA.configure(text=f"LIBRA:  {libra_dollar()} $")
     combo_cb1.place(x=230, y= 200)
-    valorLabel1 = Label(root,text="De...").place(x=45,y=200)
-    valorLabel2 = Label(root,text="A...").place(x=45,y=240)
-    combo_cb2.place(x=230, y= 240)
+    valorLabel1 = Label(root,text="De...").place(x=40,y=200)
+    valorLabel2 = Label(root,text="A...").place(x=40,y=260)
+    combo_cb2.place(x=230, y= 260)
+
+    #bindeo para la imagen
+    combo_cb1.bind('<<ComboboxSelected>>', ponerImg)
+    combo_cb2.bind('<<ComboboxSelected>>', ponerImg2)
+
     LabelINFO.configure(text="Datos actualizados correctamente!")
     generarEntry(80,200,valor1)
-    generarEntry(80,240,valor2)
-    generarButton(100,280)
+    generarEntry(80,260,valor2)
+    generarButton(100,300)
 
+def ponerImg(event):
+    if(combo_cb1.get()=='BITCOIN (BTC)'):
+        image = Image.open("imgs/bitcoin.png")
+    elif(combo_cb1.get()=='EURO (EUR)'):   
+        image = Image.open("imgs/euro.png")
+    elif(combo_cb1.get()=='DOLLAR (USD)'):
+        image = Image.open("imgs/dollar.png")
+    elif(combo_cb1.get()=='LIBRA (GBP)'):
+        image = Image.open("imgs/libra.png")
+    else:
+        image = Image.open("imgs/exchange.png")
+   
+    # Reszie the image using resize() method
+    resize_image = image.resize((50, 50))
+    
+    img = ImageTk.PhotoImage(resize_image)
+    
+    # create label and add resize image
+    label1 = Label(image=img)
+    label1.image = img
+    label1.place(x=360,y=180)
+
+
+def ponerImg2(event):
+    if(combo_cb2.get()=='BITCOIN (BTC)'):
+        image = Image.open("imgs/bitcoin.png")
+    elif(combo_cb2.get()=='EURO (EUR)'):   
+        image = Image.open("imgs/euro.png")
+    elif(combo_cb2.get()=='DOLLAR (USD)'):
+        image = Image.open("imgs/dollar.png")
+    elif(combo_cb2.get()=='LIBRA (GBP)'):
+        image = Image.open("imgs/libra.png") 
+    else:
+        image = Image.open("imgs/exchange.png")
+    # Reszie the image using resize() method
+    resize_image = image.resize((50, 50))
+    
+    img = ImageTk.PhotoImage(resize_image)
+    
+    # create label and add resize image
+    label1 = Label(image=img)
+    label1.image = img
+    label1.place(x=360,y=240)    
+        
 
 def generarEntry(x,y,valor):
     valorEntry = Entry(root,textvariable = valor,show="")
