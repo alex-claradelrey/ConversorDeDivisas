@@ -76,7 +76,7 @@ divisa_seleccionada2 = tk.StringVar()
 combo_cb1 = ttk.Combobox(
     root, 
     textvariable=divisa_seleccionada1, 
-    width=20
+    width=15
 )  
 
 combo_cb1['values'] = divisas
@@ -84,7 +84,7 @@ combo_cb1['state'] = 'readonly'
 combo_cb1.current(0)
 
 
-combo_cb2 = ttk.Combobox(root, textvariable=divisa_seleccionada2, width=20)
+combo_cb2 = ttk.Combobox(root, textvariable=divisa_seleccionada2, width=15)
 combo_cb2['values'] = divisas
 combo_cb2['state'] = 'readonly'
 combo_cb2.current(0)
@@ -121,11 +121,18 @@ def datos():
     LabelINFO.configure(text="Datos actualizados correctamente!")
     generarEntry(80,200,valor1)
     generarEntry(80,240,valor2)
+    generarButton(100,280)
+
 
 def generarEntry(x,y,valor):
     valorEntry = Entry(root,textvariable = valor,show="")
     valorEntry.place(x=x,y=y)
-    
+def generarButton(x,y):
+    boton = Button(
+        root,
+        text="Enviar"
+    ).place(x=x,y=y)
+
 
 messagebox.showinfo('Informacion', 'Al iniciarse la aplicacion\nespere a que se actualizen los datos')
 root.after(5000, datos)
