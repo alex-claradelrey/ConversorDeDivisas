@@ -71,7 +71,7 @@ LabelINFO = Label(root, text="Actualizacion de datos...")
 LabelINFO.place(x=5, y=410)
 
 def configuracion():
-
+    
     pass
 
 def datos():
