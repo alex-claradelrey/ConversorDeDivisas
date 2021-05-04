@@ -9,9 +9,16 @@ from selenium.webdriver.chrome.options import Options
 options = Options()
 # hacer que el driver trabaje en segundo plano con selenium
 options.add_argument('--headless') #  evitar que abra una ventana de chrome sobre la cual trabajar 
-options.add_argument('log-level=3') # evitar mensajes de advertencia e informacion innecesaria
+options.add_argument('log-level=4') # evitar mensajes de advertencia e informacion innecesaria
 
-
+# Comprobamos que el driver ya esta descargado y existe
+if(os.path.isfile('chromedriver.exe')):
+    # Iniciamos el driver con la ruta del archivo.exe guardandolo en una variable
+    driver = webdriver.Chrome('./chromedriver.exe', options=options)
+else:
+    # En caso de que no exista y no lo encuentre se inicia la configuracion
+    configuracionDriver()
+    
 
 def configuracionDriver():
     # En caso de que no exista, descargamos el driver de google chrome para poder trabajar con selenium
@@ -30,14 +37,6 @@ def configuracionDriver():
             zip_ref.extractall('./')
         # Una vez extraido borramos el archivo .zip
         os.remove('chromedriver_win32.zip')
-
-# Comprobamos que el driver ya esta descargado y existe
-if(os.path.isfile('chromedriver.exe')):
-    # Iniciamos el driver con la ruta del archivo.exe guardandolo en una variable
-    driver = webdriver.Chrome('./chromedriver.exe', options=options)
-else:
-    # En caso de que no exista y no lo encuentre se inicia la configuracion
-    configuracionDriver()
 
 
 # Saca el valor actual de la criptomoneda de Bitcoin - dolar basandose en google
