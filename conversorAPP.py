@@ -8,6 +8,7 @@ from datosremotos.datosr import *
 from datosremotos.config import *
 from time import sleep
 
+
 root = Tk()
 
 #centrar aplicacion en el centro de la pantalla
@@ -71,20 +72,23 @@ LabelINFO = Label(root, text="Actualizacion de datos...")
 LabelINFO.place(x=5, y=410)
 
 def configuracion():
-    
+
     pass
 
 def datos():
-    configuracion()
-    LabelBTC.configure(text=f"BTC:      {btc_dollar()} $")
-    LabelEURO.configure(text=f"EURO:   {euro_dollar()} $")
-    LabelLIBRA.configure(text=f"LIBRA:  {libra_dollar()} $")
-    combo_cb1.place(x=250, y=30)
-    combo_cb2.place(x=250, y=90)
-    LabelINFO.configure(text="Datos actualizados correctamente!")
+
+    if(os.path.isfile('./chromedriver.exe')):
+        LabelBTC.configure(text=f"BTC:      {btc_dollar()} $")
+        LabelEURO.configure(text=f"EURO:   {euro_dollar()} $")
+        LabelLIBRA.configure(text=f"LIBRA:  {libra_dollar()} $")
+        combo_cb1.place(x=250, y=30)
+        combo_cb2.place(x=250, y=90)
+        LabelINFO.configure(text="Datos actualizados correctamente!")
+    else:
+        configuracionDriver()
 
 messagebox.showinfo('Informacion', 'Al iniciarse la aplicacion\nespere a que se actualizen los datos')
-root.after(500, datos)
+root.after(5000, datos)
 root.mainloop()
 
 
