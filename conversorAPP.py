@@ -1,6 +1,10 @@
 from tkinter import *
 from tkinter import ttk
 
+from datosremotos.conversor import *
+from datosremotos.datosr import *
+
+configuracionDriver()
 
 
 root = Tk()
@@ -29,8 +33,8 @@ root.title("Conversor de divisas")
 root.resizable(False, False)
 
 #colocamos los elementos
-btc_dollar = 0
+btc_dollar = btc_dollar()
 ttk.Label(root, text="Valores Actuales:").place(x=20, y=10)
-ttk.Label(root, text=f"BTC: {btc_dollar}$").place(x=20, y=30)
+ttk.Label(root, text=f"BTC: {btc_dollar} $").place(x=20, y=30)
 
 root.mainloop()
