@@ -100,7 +100,6 @@ def configuracion():
     pass
 
 def datos():
-<<<<<<< HEAD
 
     if(os.path.isfile('./chromedriver.exe')):
         LabelBTC.configure(text=f"BTC:      {btc_dollar()} $")
@@ -111,7 +110,6 @@ def datos():
         LabelINFO.configure(text="Datos actualizados correctamente!")
     else:
         configuracionDriver()
-=======
     configuracion()
     LabelBTC.configure(text=f"BTC:      {btc_dollar()} $")
     LabelEURO.configure(text=f"EURO:   {euro_dollar()} $")
@@ -128,7 +126,6 @@ def generarEntry(x,y,valor):
     valorEntry = Entry(root,textvariable = valor,show="")
     valorEntry.place(x=x,y=y)
     
->>>>>>> d5b5acbfff3ed7d272ee14a8f9f581fee10f37ce
 
 messagebox.showinfo('Informacion', 'Al iniciarse la aplicacion\nespere a que se actualizen los datos')
 root.after(5000, datos)
