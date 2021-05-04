@@ -1,3 +1,6 @@
 Tkinter (Interfaces gráficas):
 
 - https://python-para-impacientes.blogspot.com/2015/12/tkinter-interfaces-graficas-en-python-i.html
+
+https://www.programiz.com/python-programming/json
+
