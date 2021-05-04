@@ -35,17 +35,36 @@ root.resizable(False, False)
 
 #colocamos los elementos
 
+#variables
+valor1 = DoubleVar()
+valor2 = DoubleVar()
+Label(
+    root, 
+    text="Valores a tiempo real:",
+    font=("Arial",18),
+    fg = '#0C7A90'
+).place(x=20, y=10)
 
-Label(root, text="Valores Actuales:").place(x=20, y=10)
+LabelBTC = Label(
+    root, 
+    text="BTC:        - $",
+    font =("Helvetica",14)
+)
+LabelBTC.place(x=20, y=50)
 
-LabelBTC = Label(root, text="BTC:        - $")
-LabelBTC.place(x=20, y=30)
+LabelEURO = Label(
+    root, 
+    text="EURO:     - $",
+    font =("Helvetica",14)
+)
+LabelEURO.place(x=20, y=80)
 
-LabelEURO = Label(root, text="EURO:     - $")
-LabelEURO.place(x=20, y=50)
-
-LabelLIBRA = Label(root, text="LIBRA:     - $")
-LabelLIBRA.place(x=20, y=70)
+LabelLIBRA = Label(
+    root, 
+    text="LIBRA:     - $",
+    font = ("Helvetica",14)
+)
+LabelLIBRA.place(x=20, y=110)
 
 
 divisas = ('Seleccione divisa...', 'BITCOIN (BTC)', 'EURO (EUR)', 'LIBRA (GBP)', 'DOLLAR (USD)')
@@ -53,7 +72,12 @@ divisa_seleccionada1 = tk.StringVar()
 divisa_seleccionada2 = tk.StringVar()
 
 
-combo_cb1 = ttk.Combobox(root, textvariable=divisa_seleccionada1, width=20)
+combo_cb1 = ttk.Combobox(
+    root, 
+    textvariable=divisa_seleccionada1, 
+    width=20
+)  
+
 combo_cb1['values'] = divisas
 combo_cb1['state'] = 'readonly'
 combo_cb1.current(0)
@@ -79,9 +103,18 @@ def datos():
     LabelBTC.configure(text=f"BTC:      {btc_dollar()} $")
     LabelEURO.configure(text=f"EURO:   {euro_dollar()} $")
     LabelLIBRA.configure(text=f"LIBRA:  {libra_dollar()} $")
-    combo_cb1.place(x=250, y=30)
-    combo_cb2.place(x=250, y=90)
+    combo_cb1.place(x=230, y= 200)
+    valorLabel1 = Label(root,text="De...").place(x=45,y=200)
+    valorLabel2 = Label(root,text="A...").place(x=45,y=240)
+    combo_cb2.place(x=230, y= 240)
     LabelINFO.configure(text="Datos actualizados correctamente!")
+    generarEntry(80,200,valor1)
+    generarEntry(80,240,valor2)
+
+def generarEntry(x,y,valor):
+    valorEntry = Entry(root,textvariable = valor,show="")
+    valorEntry.place(x=x,y=y)
+    
 
 messagebox.showinfo('Informacion', 'Al iniciarse la aplicacion\nespere a que se actualizen los datos')
 root.after(500, datos)
