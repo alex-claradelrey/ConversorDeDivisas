@@ -108,6 +108,7 @@ def datos():
     def convertir(event, divisa_inicial, divisa_cambio, combo_cb1, combo_cb2):
         div_in = divisa_inicial.get()
         print(div_in)
+        divisa_cambio.delete(0, "")
         divisa_cambio.insert(0, "333.3")
         print(divisa_cambio.get())
         print(combo_cb1)
