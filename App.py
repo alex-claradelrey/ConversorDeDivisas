@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from divisas import *
 from config import *
+from conversor import *
 from PIL import ImageTk, Image
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -38,8 +39,8 @@ root.resizable(False, False)
 #colocamos los elementos
 
 #variables
-valor1 = DoubleVar()
-valor2 = DoubleVar()
+""" valor1 = DoubleVar()
+valor2 = DoubleVar() """
 
 Label(root, text="Valores a tiempo real:", font=("Arial",18), fg = '#0C7A90').place(x=20, y=10)
 
@@ -73,10 +74,13 @@ LabelINFO = Label(root, text="ESTADO: Actualizando datos online...")
 LabelINFO.place(x=5, y=410)
 
 def datos():
+    btc_dat = btc_dollar()
+    euro_dat = euro_dollar()
+    libra_dat = libra_dollar()
 
-    LabelBTC.configure(text=f"BTC-USD:     {btc_dollar()} $")
-    LabelEURO.configure(text=f"EURO-USD:  {euro_dollar()} $")
-    LabelLIBRA.configure(text=f"LIBRA-USD:  {libra_dollar()} $")
+    LabelBTC.configure(text=f"BTC-USD:     {btc_dat} $")
+    LabelEURO.configure(text=f"EURO-USD:  {euro_dat} $")
+    LabelLIBRA.configure(text=f"LIBRA-USD:  {libra_dat} $")
     LabelINFO.configure(text="ESTADO: Datos actualizados correctamente!")
 
     combo_cb1.place(x=230, y=200)
@@ -93,11 +97,31 @@ def datos():
     combo_cb2.bind('<<ComboboxSelected>>', ponerImg_2)
     imgPorDefecto(360,240)
 
-    generarEntry(80,200,valor1)
-    generarEntry(80,260,valor2)
-    generarButton(100,300)
-    
+# cambios dejar como esta
 
+    divisa_inicial = ttk.Entry(root)
+    divisa_inicial.place(x=80, y=200)
+
+    divisa_cambio = ttk.Entry(root)
+    divisa_cambio.place(x=80, y=260)
+
+    def convertir(event, divisa_inicial, divisa_cambio, combo_cb1, combo_cb2):
+        div_in = divisa_inicial.get()
+        print(div_in)
+        divisa_cambio.delete(0, "")
+        divisa_cambio.insert(0, "333.3")
+        print(divisa_cambio.get())
+        print(combo_cb1)
+        print(combo_cb2)
+
+
+    btn_convertir = ttk.Button(root, text="Convertir")
+    btn_convertir.place(x=100, y=300)
+    btn_convertir.bind('<Button-1>', lambda event: convertir(event, divisa_inicial, divisa_cambio, combo_cb1.get(), combo_cb2.get()))
+
+
+
+    
 #genera las imagenes por defecto de los entry cuando inica con el "Seleccione divisa..."
 def imgPorDefecto(equis, igriega):
     image = Image.open("imgs/exchange.png")
@@ -168,15 +192,6 @@ def ponerImg_2(event):
     label1.image = img
     label1.place(x=360,y=240)    
         
-
-def generarEntry(x,y,valor):
-    valorEntry = ttk.Entry(root,textvariable = valor,show="")
-    valorEntry.place(x=x,y=y)
-def generarButton(x,y):
-    boton = ttk.Button(
-        root,
-        text="Enviar"
-    ).place(x=x,y=y)
 
 #messagebox.showinfo('Informacion', 'Al iniciarse la aplicacion\nespere a que se actualizen los datos')
 root.after(100, datos)
