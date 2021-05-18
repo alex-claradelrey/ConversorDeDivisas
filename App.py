@@ -4,7 +4,8 @@ from tkinter import ttk
 from tkinter import messagebox
 from divisas import *
 from config import *
-from conversor import *
+#from conversor import *
+from conver import *
 from PIL import ImageTk, Image
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -74,9 +75,15 @@ LabelINFO = Label(root, text="ESTADO: Actualizando datos online...")
 LabelINFO.place(x=5, y=410)
 
 def datos():
-    btc_dat = btc_dollar()
+    """btc_dat = btc_dollar()
     euro_dat = euro_dollar()
-    libra_dat = libra_dollar()
+    libra_dat = libra_dollar() """
+    #aqui llama a un metodo del fichero conversor.py que actualiza los datos con los cuales vamos a hacer el cambio de divisa
+    lista_divisas = mostrarDivisas()
+    
+    euro_dat = lista_divisas[0]
+    libra_dat = lista_divisas[1]
+    btc_dat = lista_divisas[2]
 
     LabelBTC.configure(text=f"BTC-USD:     {btc_dat} $")
     LabelEURO.configure(text=f"EURO-USD:  {euro_dat} $")
@@ -106,13 +113,13 @@ def datos():
     divisa_cambio.place(x=80, y=260)
 
     def convertir(event, divisa_inicial, divisa_cambio, combo_cb1, combo_cb2):
-        div_in = divisa_inicial.get()
-        print(div_in)
+
+        resultado = conversor2(combo_cb1, combo_cb2, int(divisa_inicial.get()))
+        print(resultado)
+  
         divisa_cambio.delete(0, "")
-        divisa_cambio.insert(0, "333.3")
-        print(divisa_cambio.get())
-        print(combo_cb1)
-        print(combo_cb2)
+        divisa_cambio.insert(0, str(resultado))
+   
 
 
     btn_convertir = ttk.Button(root, text="Convertir")
@@ -145,12 +152,12 @@ def ponerImg_1(event):
     elif(combo_cb1.get()=='EURO (EUR)'):
         writeDivisa(2)   
         image = Image.open("imgs/euro.png")
-    elif(combo_cb1.get()=='DOLLAR (USD)'):
-        writeDivisa(3)
-        image = Image.open("imgs/dollar.png")
     elif(combo_cb1.get()=='LIBRA (GBP)'):
-        writeDivisa(4)
+        writeDivisa(3)
         image = Image.open("imgs/libra.png")
+    elif(combo_cb1.get()=='DOLLAR (USD)'):
+        writeDivisa(4)
+        image = Image.open("imgs/dollar.png")
     else:
         writeDivisa(0)
         image = Image.open("imgs/exchange.png")
@@ -173,12 +180,12 @@ def ponerImg_2(event):
     elif(combo_cb2.get()=='EURO (EUR)'):
         writeCambio(2)   
         image = Image.open("imgs/euro.png")
-    elif(combo_cb2.get()=='DOLLAR (USD)'):
-        writeCambio(3)
-        image = Image.open("imgs/dollar.png")
     elif(combo_cb2.get()=='LIBRA (GBP)'):
+        writeCambio(3)
+        image = Image.open("imgs/libra.png")
+    elif(combo_cb2.get()=='DOLLAR (USD)'):
         writeCambio(4)
-        image = Image.open("imgs/libra.png") 
+        image = Image.open("imgs/dollar.png") 
     else:
         writeCambio(0)
         image = Image.open("imgs/exchange.png")
@@ -191,7 +198,12 @@ def ponerImg_2(event):
     label1 = Label(image=img)
     label1.image = img
     label1.place(x=360,y=240)    
-        
+
+
+
+#aqui hacemos la funcion para conversion de divisas
+
+
 
 #messagebox.showinfo('Informacion', 'Al iniciarse la aplicacion\nespere a que se actualizen los datos')
 root.after(100, datos)
